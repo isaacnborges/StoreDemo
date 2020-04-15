@@ -8,9 +8,9 @@ namespace NerdStore.Catalogo.Domain
     public class EstoqueService : IEstoqueService
     {
         private readonly IProdutoRepository _produtoRepository;
-        private readonly IMediatrHandler _bus;
+        private readonly IMediatRHandler _bus;
 
-        public EstoqueService(IProdutoRepository produtoRepository, IMediatrHandler mediatrHandler)
+        public EstoqueService(IProdutoRepository produtoRepository, IMediatRHandler mediatrHandler)
         {
             _produtoRepository = produtoRepository;
             _bus = mediatrHandler;

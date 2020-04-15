@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 
 namespace NerdStore.Core.Bus
 {
-    public class MediatrHandler : IMediatrHandler
+    public class MediatRHandler : IMediatRHandler
     {
         private readonly IMediator _mediator;
 
-        public MediatrHandler(IMediator mediator)
+        public MediatRHandler(IMediator mediator)
         {
             _mediator = mediator;
         }
