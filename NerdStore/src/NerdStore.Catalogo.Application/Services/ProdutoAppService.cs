@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using NerdStore.Catalogo.Application.Services.Interfaces;
 using NerdStore.Catalogo.Application.ViewModels;
-using NerdStore.Catalogo.Domain;
+using NerdStore.Catalogo.Domain.Entities;
+using NerdStore.Catalogo.Domain.Interfaces;
 using NerdStore.Core.DomainObjects;
 using System;
 using System.Collections.Generic;

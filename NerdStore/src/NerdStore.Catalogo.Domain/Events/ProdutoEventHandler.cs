@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using NerdStore.Catalogo.Domain.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
 

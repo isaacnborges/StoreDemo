@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace NerdStore.Catalogo.Application.Services
+namespace NerdStore.Catalogo.Application.Services.Interfaces
 {
     public interface IProdutoAppService
     {

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NerdStore.Catalogo.Application.Services;
+using NerdStore.Catalogo.Application.Services.Interfaces;
 using System;
 using System.Threading.Tasks;
 

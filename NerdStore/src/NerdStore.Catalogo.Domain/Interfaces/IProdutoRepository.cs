@@ -1,9 +1,10 @@
-﻿using NerdStore.Core.Data;
+﻿using NerdStore.Catalogo.Domain.Entities;
+using NerdStore.Core.Data;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace NerdStore.Catalogo.Domain
+namespace NerdStore.Catalogo.Domain.Interfaces
 {
     public interface IProdutoRepository : IRepository<Produto>
     {

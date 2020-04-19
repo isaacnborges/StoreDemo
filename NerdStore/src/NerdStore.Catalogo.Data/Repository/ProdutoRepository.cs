@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NerdStore.Catalogo.Domain;
+using NerdStore.Catalogo.Domain.Entities;
+using NerdStore.Catalogo.Domain.Interfaces;
 using NerdStore.Core.Data;
 using System;
 using System.Collections.Generic;
