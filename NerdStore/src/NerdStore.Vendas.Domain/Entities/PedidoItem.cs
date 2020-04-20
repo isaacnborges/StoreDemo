@@ -1,7 +1,7 @@
 ﻿using NerdStore.Core.DomainObjects;
 using System;
 
-namespace NerdStore.Vendas.Domain
+namespace NerdStore.Vendas.Domain.Entities
 {
     public class PedidoItem : Entity
     {
@@ -12,6 +12,16 @@ namespace NerdStore.Vendas.Domain
         public decimal ValorUnitario { get; private set; }
         public Pedido Pedido { get; set; }
 
+        protected PedidoItem() { }
+
+        public PedidoItem(Guid produtoId, string produtoNome, int quantidade, decimal valorUnitario)
+        {
+            ProdutoId = produtoId;
+            ProdutoNome = produtoNome;
+            Quantidade = quantidade;
+            ValorUnitario = valorUnitario;
+        }
+
         public decimal CalcularValor() => Quantidade * ValorUnitario;
 
         internal void AssociarPedido(Guid pedidoId) => PedidoId = pedidoId;
@@ -19,5 +29,7 @@ namespace NerdStore.Vendas.Domain
         internal void AdicionarUnidades(int unidades) => Quantidade += unidades;
 
         internal void AtualizarUnidades(int unidades) => Quantidade = unidades;
+
+        public override bool EhValido() => true;
     }
 }

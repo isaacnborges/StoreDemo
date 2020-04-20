@@ -7,7 +7,12 @@ using NerdStore.Catalogo.Data.Repository;
 using NerdStore.Catalogo.Domain.Events;
 using NerdStore.Catalogo.Domain.Interfaces;
 using NerdStore.Catalogo.Domain.Services;
-using NerdStore.Core.Bus;
+using NerdStore.Core.Communication.Mediator;
+using NerdStore.Core.Messages.CommonMessages.Notifications;
+using NerdStore.Vendas.Application.Commands;
+using NerdStore.Vendas.Data;
+using NerdStore.Vendas.Data.Repository;
+using NerdStore.Vendas.Domain.Interfaces;
 
 namespace NerdStore.WebApp.MVC.Setup
 {
@@ -15,14 +20,41 @@ namespace NerdStore.WebApp.MVC.Setup
     {
         public static void RegisterServices(this IServiceCollection services)
         {
-            services.AddScoped<IMediatRHandler, MediatRHandler>();
+            RegisterNotifications(services);
+            RegisterEvents(services);
+            RegisterCommands(services);
+            RegisterCatalogo(services);
+            RegisterVendas(services);
+        }
 
+        private static void RegisterNotifications(IServiceCollection services)
+        {
+            services.AddScoped<IMediatorHandler, MediatorHandler>();
+            services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
+        }
+
+        private static void RegisterEvents(IServiceCollection services)
+        {
+            services.AddScoped<INotificationHandler<ProdutoAbaixoEstoqueEvent>, ProdutoEventHandler>();
+        }
+
+        private static void RegisterCommands(IServiceCollection services)
+        {
+            services.AddScoped<IRequestHandler<AdicionarItemPedidoCommand, bool>, PedidoCommandHandler>();
+        }
+
+        private static void RegisterCatalogo(IServiceCollection services)
+        {
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
             services.AddScoped<IProdutoAppService, ProdutoAppService>();
             services.AddScoped<IEstoqueService, EstoqueService>();
             services.AddScoped<CatalogoContext>();
+        }
 
-            services.AddScoped<INotificationHandler<ProdutoAbaixoEstoqueEvent>, ProdutoEventHandler>();
+        private static void RegisterVendas(IServiceCollection services)
+        {
+            services.AddScoped<IPedidoRepository, PedidoRepository>();
+            services.AddScoped<VendasContext>();
         }
     }
 }

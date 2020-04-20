@@ -1,8 +1,9 @@
 ﻿using NerdStore.Core.DomainObjects;
+using NerdStore.Vendas.Domain.Enums;
 using System;
 using System.Collections.Generic;
 
-namespace NerdStore.Vendas.Domain
+namespace NerdStore.Vendas.Domain.Entities
 {
     public class Voucher : Entity
     {
