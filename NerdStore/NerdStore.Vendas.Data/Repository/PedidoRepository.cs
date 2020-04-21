@@ -36,13 +36,11 @@ namespace NerdStore.Vendas.Data.Repository
             var pedido = await _context.Pedidos.FirstOrDefaultAsync(p => p.ClienteId == clienteId && p.PedidoStatus == PedidoStatus.Rascunho);
             if (pedido == null) return null;
 
-            await _context.Entry(pedido)
-                .Collection(i => i.PedidoItems).LoadAsync();
+            await _context.Entry(pedido).Collection(i => i.PedidoItems).LoadAsync();
 
             if (pedido.VoucherId != null)
             {
-                await _context.Entry(pedido)
-                    .Reference(i => i.Voucher).LoadAsync();
+                await _context.Entry(pedido).Reference(i => i.Voucher).LoadAsync();
             }
 
             return pedido;

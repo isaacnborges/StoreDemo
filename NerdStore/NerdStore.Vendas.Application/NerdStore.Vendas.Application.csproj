@@ -5,11 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Events\" />
-    <Folder Include="Queries\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\src\NerdStore.Core\NerdStore.Core.csproj" />
     <ProjectReference Include="..\src\NerdStore.Vendas.Domain\NerdStore.Vendas.Domain.csproj" />
   </ItemGroup>

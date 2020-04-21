@@ -5,11 +5,15 @@ using NerdStore.Catalogo.Application.Services.Interfaces;
 using NerdStore.Catalogo.Data;
 using NerdStore.Catalogo.Data.Repository;
 using NerdStore.Catalogo.Domain.Events;
+using NerdStore.Catalogo.Domain.Handlers;
 using NerdStore.Catalogo.Domain.Interfaces;
 using NerdStore.Catalogo.Domain.Services;
 using NerdStore.Core.Communication.Mediator;
 using NerdStore.Core.Messages.CommonMessages.Notifications;
 using NerdStore.Vendas.Application.Commands;
+using NerdStore.Vendas.Application.Events;
+using NerdStore.Vendas.Application.Handlers;
+using NerdStore.Vendas.Application.Queries;
 using NerdStore.Vendas.Data;
 using NerdStore.Vendas.Data.Repository;
 using NerdStore.Vendas.Domain.Interfaces;
@@ -36,11 +40,17 @@ namespace NerdStore.WebApp.MVC.Setup
         private static void RegisterEvents(IServiceCollection services)
         {
             services.AddScoped<INotificationHandler<ProdutoAbaixoEstoqueEvent>, ProdutoEventHandler>();
+            services.AddScoped<INotificationHandler<PedidoRascunhoIniciadoEvent>, PedidoEventHandler>();
+            services.AddScoped<INotificationHandler<PedidoAtualizadoEvent>, PedidoEventHandler>();
+            services.AddScoped<INotificationHandler<PedidoItemAdicionadoEvent>, PedidoEventHandler>();
         }
 
         private static void RegisterCommands(IServiceCollection services)
         {
-            services.AddScoped<IRequestHandler<AdicionarItemPedidoCommand, bool>, PedidoCommandHandler>();
+            services.AddScoped<IRequestHandler<AdicionarItemPedidoCommand, bool>, AdicionarItemPedidoCommandHandler>();
+            services.AddScoped<IRequestHandler<AtualizarItemPedidoCommand, bool>, AtualizarItemPedidoCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoverItemPedidoCommand, bool>, RemoverItemPedidoCommandHandler>();
+            services.AddScoped<IRequestHandler<AplicarVoucherPedidoCommand, bool>, AplicarVoucherPedidoCommandHandler>();                                                                                   
         }
 
         private static void RegisterCatalogo(IServiceCollection services)
@@ -54,6 +64,7 @@ namespace NerdStore.WebApp.MVC.Setup
         private static void RegisterVendas(IServiceCollection services)
         {
             services.AddScoped<IPedidoRepository, PedidoRepository>();
+            services.AddScoped<IPedidoQueries, PedidoQueries>();
             services.AddScoped<VendasContext>();
         }
     }
