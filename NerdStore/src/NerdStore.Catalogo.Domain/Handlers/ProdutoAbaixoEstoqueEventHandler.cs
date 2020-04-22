@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace NerdStore.Catalogo.Domain.Handlers
 {
-    public class ProdutoEventHandler : INotificationHandler<ProdutoAbaixoEstoqueEvent>
+    public class ProdutoAbaixoEstoqueEventHandler : INotificationHandler<ProdutoAbaixoEstoqueEvent>
     {
         public Task Handle(ProdutoAbaixoEstoqueEvent notification, CancellationToken cancellationToken)
         {

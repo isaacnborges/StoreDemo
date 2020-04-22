@@ -9,10 +9,12 @@ using NerdStore.Catalogo.Domain.Handlers;
 using NerdStore.Catalogo.Domain.Interfaces;
 using NerdStore.Catalogo.Domain.Services;
 using NerdStore.Core.Communication.Mediator;
+using NerdStore.Core.Messages.CommonMessages.IntegrationEvents;
 using NerdStore.Core.Messages.CommonMessages.Notifications;
 using NerdStore.Vendas.Application.Commands;
+using NerdStore.Vendas.Application.Commands.Handlers;
 using NerdStore.Vendas.Application.Events;
-using NerdStore.Vendas.Application.Handlers;
+using NerdStore.Vendas.Application.Events.Handlers;
 using NerdStore.Vendas.Application.Queries;
 using NerdStore.Vendas.Data;
 using NerdStore.Vendas.Data.Repository;
@@ -39,10 +41,11 @@ namespace NerdStore.WebApp.MVC.Setup
 
         private static void RegisterEvents(IServiceCollection services)
         {
-            services.AddScoped<INotificationHandler<ProdutoAbaixoEstoqueEvent>, ProdutoEventHandler>();
-            services.AddScoped<INotificationHandler<PedidoRascunhoIniciadoEvent>, PedidoEventHandler>();
-            services.AddScoped<INotificationHandler<PedidoAtualizadoEvent>, PedidoEventHandler>();
-            services.AddScoped<INotificationHandler<PedidoItemAdicionadoEvent>, PedidoEventHandler>();
+            services.AddScoped<INotificationHandler<ProdutoAbaixoEstoqueEvent>, ProdutoAbaixoEstoqueEventHandler>();
+            services.AddScoped<INotificationHandler<PedidoRascunhoIniciadoEvent>, PedidoRascunhoIniciadoEventHandler>();
+            services.AddScoped<INotificationHandler<PedidoAtualizadoEvent>, PedidoAtualizadoEventHandler>();
+            services.AddScoped<INotificationHandler<PedidoItemAdicionadoEvent>, PedidoItemAdicionadoEventHandler>();
+            services.AddScoped<INotificationHandler<PedidoEstoqueRejeitadoEvent>, PedidoEstoqueRejeitadoEventHandler>();
         }
 
         private static void RegisterCommands(IServiceCollection services)

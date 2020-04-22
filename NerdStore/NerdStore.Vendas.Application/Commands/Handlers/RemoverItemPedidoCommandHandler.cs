@@ -2,27 +2,26 @@
 using NerdStore.Core.Communication.Mediator;
 using NerdStore.Core.Handlers;
 using NerdStore.Core.Messages.CommonMessages.Notifications;
-using NerdStore.Vendas.Application.Commands;
 using NerdStore.Vendas.Application.Events;
 using NerdStore.Vendas.Domain.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace NerdStore.Vendas.Application.Handlers
+namespace NerdStore.Vendas.Application.Commands.Handlers
 {
-    public class AtualizarItemPedidoCommandHandler : CommandHandlerBase, IRequestHandler<AtualizarItemPedidoCommand, bool>
+    public class RemoverItemPedidoCommandHandler : CommandHandlerBase, IRequestHandler<RemoverItemPedidoCommand, bool>
     {
         private readonly IMediatorHandler _mediatorHandler;
         private readonly IPedidoRepository _pedidoRepository;
 
-        public AtualizarItemPedidoCommandHandler(IMediatorHandler mediatorHandler, IPedidoRepository pedidoRepository)
+        public RemoverItemPedidoCommandHandler(IMediatorHandler mediatorHandler, IPedidoRepository pedidoRepository) 
             : base(mediatorHandler)
         {
-            _pedidoRepository = pedidoRepository;
             _mediatorHandler = mediatorHandler;
+            _pedidoRepository = pedidoRepository;
         }
 
-        public async Task<bool> Handle(AtualizarItemPedidoCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(RemoverItemPedidoCommand request, CancellationToken cancellationToken)
         {
             if (!ValidarComando(request)) 
                 return false;
@@ -37,18 +36,17 @@ namespace NerdStore.Vendas.Application.Handlers
 
             var pedidoItem = await _pedidoRepository.ObterItemPorPedido(pedido.Id, request.ProdutoId);
 
-            if (!pedido.PedidoItemExistente(pedidoItem))
+            if (pedidoItem != null && !pedido.PedidoItemExistente(pedidoItem))
             {
                 await _mediatorHandler.PublicarNotificacao(new DomainNotification("pedido", "Item do pedido não encontrado!"));
                 return false;
             }
 
-            pedido.AtualizarUnidades(pedidoItem, request.Quantidade);
-
+            pedido.RemoverItem(pedidoItem);
             pedido.AdicionarEvento(new PedidoAtualizadoEvent(pedido.ClienteId, pedido.Id, pedido.ValorTotal));
-            pedido.AdicionarEvento(new PedidoProdutoAtualizadoEvent(request.ClienteId, pedido.Id, request.ProdutoId, request.Quantidade));
+            pedido.AdicionarEvento(new PedidoProdutoRemovidoEvent(request.ClienteId, pedido.Id, request.ProdutoId));
 
-            _pedidoRepository.AtualizarItem(pedidoItem);
+            _pedidoRepository.RemoverItem(pedidoItem);
             _pedidoRepository.Atualizar(pedido);
 
             return await _pedidoRepository.UnitOfWork.Commit();

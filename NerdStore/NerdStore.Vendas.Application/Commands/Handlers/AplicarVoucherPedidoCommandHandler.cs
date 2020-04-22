@@ -2,13 +2,12 @@
 using NerdStore.Core.Communication.Mediator;
 using NerdStore.Core.Handlers;
 using NerdStore.Core.Messages.CommonMessages.Notifications;
-using NerdStore.Vendas.Application.Commands;
 using NerdStore.Vendas.Application.Events;
 using NerdStore.Vendas.Domain.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace NerdStore.Vendas.Application.Handlers
+namespace NerdStore.Vendas.Application.Commands.Handlers
 {
     public class AplicarVoucherPedidoCommandHandler : CommandHandlerBase, IRequestHandler<AplicarVoucherPedidoCommand, bool>
     {

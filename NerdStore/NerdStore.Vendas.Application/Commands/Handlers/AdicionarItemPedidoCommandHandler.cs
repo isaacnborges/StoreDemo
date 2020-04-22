@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using NerdStore.Core.Communication.Mediator;
 using NerdStore.Core.Handlers;
-using NerdStore.Vendas.Application.Commands;
 using NerdStore.Vendas.Application.Events;
 using NerdStore.Vendas.Domain.Entities;
 using NerdStore.Vendas.Domain.Interfaces;
@@ -9,7 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace NerdStore.Vendas.Application.Handlers
+namespace NerdStore.Vendas.Application.Commands.Handlers
 {
     public class AdicionarItemPedidoCommandHandler : CommandHandlerBase, IRequestHandler<AdicionarItemPedidoCommand, bool>
     {
