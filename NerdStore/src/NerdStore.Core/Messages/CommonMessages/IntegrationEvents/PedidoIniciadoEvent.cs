@@ -1,4 +1,4 @@
-﻿using NerdStore.Core.Dto;
+﻿using NerdStore.Core.Dtos;
 using System;
 
 namespace NerdStore.Core.Messages.CommonMessages.IntegrationEvents

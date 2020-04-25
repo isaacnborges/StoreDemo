@@ -17,7 +17,6 @@ namespace NerdStore.Catalogo.Data.Repository
         {
             _context = context;
         }
-
         public IUnitOfWork UnitOfWork => _context;
 
         public async Task<IEnumerable<Produto>> ObterTodos()
@@ -27,7 +26,7 @@ namespace NerdStore.Catalogo.Data.Repository
 
         public async Task<Produto> ObterPorId(Guid id)
         {
-            return await _context.Produtos.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+            return await _context.Produtos.FindAsync(id);
         }
 
         public async Task<IEnumerable<Produto>> ObterPorCategoria(int codigo)
@@ -45,14 +44,14 @@ namespace NerdStore.Catalogo.Data.Repository
             _context.Produtos.Add(produto);
         }
 
-        public void Adicionar(Categoria categoria)
-        {
-            _context.Categorias.Add(categoria);
-        }
-
         public void Atualizar(Produto produto)
         {
             _context.Produtos.Update(produto);
+        }
+
+        public void Adicionar(Categoria categoria)
+        {
+            _context.Categorias.Add(categoria);
         }
 
         public void Atualizar(Categoria categoria)

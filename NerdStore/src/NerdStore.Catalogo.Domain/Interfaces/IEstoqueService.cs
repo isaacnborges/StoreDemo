@@ -1,4 +1,4 @@
-﻿using NerdStore.Core.Dto;
+﻿using NerdStore.Core.Dtos;
 using System;
 using System.Threading.Tasks;
 
