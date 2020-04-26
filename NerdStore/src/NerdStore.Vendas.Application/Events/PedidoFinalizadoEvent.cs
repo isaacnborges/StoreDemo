@@ -10,6 +10,7 @@ namespace NerdStore.Vendas.Application.Events
         public PedidoFinalizadoEvent(Guid pedidoId)
         {
             PedidoId = pedidoId;
+            AggregateId = pedidoId;
         }
     }
 }

@@ -16,6 +16,7 @@ namespace NerdStore.Core.Messages.CommonMessages.IntegrationEvents
 
         public PedidoIniciadoEvent(Guid pedidoId, Guid clienteId, decimal total, string nomeCartao, string numeroCartao, string expiracaoCartao, string cvvCartao, ListaProdutosPedido produtosPedido)
         {
+            AggregateId = pedidoId;
             PedidoId = pedidoId;
             ClienteId = clienteId;
             Total = total;

@@ -62,8 +62,6 @@ namespace NerdStore.Vendas.Application.CommandHandlers
                 _pedidoRepository.AtualizarItem(pedido.PedidoItems.FirstOrDefault(p => p.ProdutoId == pedidoItem.ProdutoId));
             else
                 _pedidoRepository.AdicionarItem(pedidoItem);
-
-            pedido.AdicionarEvento(new PedidoAtualizadoEvent(pedido.ClienteId, pedido.Id, pedido.ValorTotal));
         }
     }
 }

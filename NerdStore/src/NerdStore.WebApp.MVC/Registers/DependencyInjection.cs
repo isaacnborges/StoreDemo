@@ -1,4 +1,7 @@
-﻿using MediatR;
+﻿using EventSourcing.Interfaces;
+using EventSourcing.Repository;
+using EventSourcing.Services;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using NerdStore.Catalogo.Application.Services;
 using NerdStore.Catalogo.Application.Services.Interfaces;
@@ -9,6 +12,7 @@ using NerdStore.Catalogo.Domain.Events;
 using NerdStore.Catalogo.Domain.Interfaces;
 using NerdStore.Catalogo.Domain.Services;
 using NerdStore.Core.Communication.Mediator;
+using NerdStore.Core.Data.EventSourcing;
 using NerdStore.Core.Messages.CommonMessages.IntegrationEvents;
 using NerdStore.Core.Messages.CommonMessages.Notifications;
 using NerdStore.Pagamentos.AntiCorruption;
@@ -39,6 +43,7 @@ namespace NerdStore.WebApp.MVC.Registers
             RegisterCatalogo(services);
             RegisterVendas(services);
             RegisterPagamento(services);
+            RegisterEventSourcing(services);
         }
 
         private static void RegisterNotifications(IServiceCollection services)
@@ -55,7 +60,6 @@ namespace NerdStore.WebApp.MVC.Registers
 
             services.AddScoped<INotificationHandler<PagamentoRealizadoEvent>, PagamentoRealizadoEventHandler>();
             services.AddScoped<INotificationHandler<PagamentoRecusadoEvent>, PagamentoRecusadoEventHandler>();
-            services.AddScoped<INotificationHandler<PedidoAtualizadoEvent>, PedidoAtualizadoEventHandler>();
             services.AddScoped<INotificationHandler<PedidoEstoqueRejeitadoEvent>, PedidoEstoqueRejeitadoEventHandler>();
             services.AddScoped<INotificationHandler<PedidoItemAdicionadoEvent>, PedidoItemAdicionadoEventHandler>();
             services.AddScoped<INotificationHandler<PedidoRascunhoIniciadoEvent>, PedidoRascunhoIniciadoEventHandler>();
@@ -98,6 +102,12 @@ namespace NerdStore.WebApp.MVC.Registers
             services.AddScoped<IPayPalGateway, PayPalGateway>();
             services.AddScoped<IConfigurationManager, ConfigurationManager>();
             services.AddScoped<PagamentoContext>();
+        }
+
+        private static void RegisterEventSourcing(IServiceCollection services)
+        {
+            services.AddSingleton<IEventStoreService, EventStoreService>();
+            services.AddSingleton<IEventSourcingRepository, EventSourcingRepository>();
         }
     }
 }

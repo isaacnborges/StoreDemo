@@ -44,7 +44,6 @@ namespace NerdStore.Vendas.Application.CommandHandlers
             }
 
             pedido.RemoverItem(pedidoItem);
-            pedido.AdicionarEvento(new PedidoAtualizadoEvent(pedido.ClienteId, pedido.Id, pedido.ValorTotal));
             pedido.AdicionarEvento(new PedidoProdutoRemovidoEvent(request.ClienteId, pedido.Id, request.ProdutoId));
 
             _pedidoRepository.RemoverItem(pedidoItem);
